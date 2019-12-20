@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: rabbit-integration
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+
+  cloud:
+    stream:
+      bindings:
+        greeting-channel:
+          destination: greetings
+          group: ${spring.application.name}

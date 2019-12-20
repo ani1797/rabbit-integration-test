@@ -1,0 +1,55 @@
+{
+  "name": "AMQP Broker",
+  "modelVersion": "7.0",
+  "authenticationproviders": [
+    {
+      "name": "passwordFile",
+      "type": "PlainPasswordFile",
+      "path": "${qpid.home_dir}${file.separator}etc${file.separator}passwd"
+    },
+    {
+      "name": "hardcoded",
+      "type": "Plain",
+      "users": [
+        {
+          "name": "guest",
+          "password": "guest",
+          "type": "managed"
+        }
+      ]
+    }
+  ],
+  "ports": [
+    {
+      "name": "AMQP",
+      "port": "5672",
+      "bindingAddress": "127.0.0.1",
+      "protocols": [
+        "AMQP_0_9_1"
+      ],
+      "authenticationProvider": "hardcoded",
+      "virtualhostaliases": [
+        {
+          "name" : "defaultAlias",
+          "type" : "defaultAlias"
+        }
+      ]
+    },
+    {
+      "name": "HTTP",
+      "port": "9000",
+      "authenticationProvider": "hardcoded",
+      "protocols": [
+        "HTTP"
+      ]
+    }
+  ],
+  "virtualhostnodes": [
+    {
+      "name": "default",
+      "type": "Memory",
+      "defaultVirtualHostNode": "true",
+      "virtualHostInitialConfiguration": "{\"type\": \"Memory\"}"
+    }
+  ]
+}
